@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PP.Maui.Views.TimeEntryView"
+             Title="TimeEntryView"
+           NavigatedTo="onarrived">
+    <VerticalStackLayout>
+        <ListView 
+            ItemsSource="{Binding TimeEntries}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Entry IsReadOnly="True"/>
+                            <Label Text="{Binding Display}"/>
+                            <Button Text="Edit" Grid.Column="2"
+                                    Command="{Binding EditCommand}"
+                                    CommandParameter="{Binding}" 
+                                    Clicked="editbutton"/>
+                            <Button Text="Delete" 
+                                    Grid.Column="3"
+                                    Command="{Binding DeleteCommand}"
+                                    CommandParameter="{Binding}"
+                                    Clicked="deletebutton"/>
+                            <Button Text="Create Bill" Grid.Column="1"
+                                    Command="{Binding CreateBillCommand}" 
+                                    CommandParameter="{Binding}"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="ADD" Clicked="addbutton"/>
+        <Button Text="Back" Clicked="backbutton"/>
+    </VerticalStackLayout>
+</ContentPage>

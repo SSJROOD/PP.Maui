@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PP.Maui.Views.EmployeeDetailView" 
+             Title="EmployeeDetailView"
+             NavigatedTo="onarriving">
+
+
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Entry IsReadOnly="True"/>
+            <Label Text="Name =>" VerticalOptions="Center"/>
+            <Entry Grid.Column="1" Text="{Binding EmployeeModel.Name}"/>
+
+            <Entry Grid.Row="1" IsReadOnly="True"/>
+            <Label Text="ID =>" Grid.Row="1" VerticalOptions="Center"/>
+            <Entry Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding EmployeeModel.ID}"/>
+
+            <Entry Grid.Row="2" IsReadOnly="True"/>
+            <Label Text="Rate =>" Grid.Row="2" VerticalOptions="Center"/>
+            <Entry Grid.Row="2" Grid.Column="1"  Text="{Binding EmployeeModel.Rate}"/>
+        </Grid>
+        <Button Text="Cancel" Clicked="cancelbutton"/>
+        <Button Text="confirm" Clicked="confirmbutton"/>
+    </VerticalStackLayout>
+    
+</ContentPage>

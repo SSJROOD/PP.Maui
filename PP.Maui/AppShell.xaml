@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="PP.Maui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PP.Maui"
+    xmlns:local2="clr-namespace:PP.Maui.Views"
+    Shell.FlyoutBehavior="Disabled">
+
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+    <ShellContent
+        Title="Client Management"
+        ContentTemplate="{DataTemplate local2:ClientView}"
+        Route="Clients" />
+    <ShellContent
+        Title="Employee Management"
+        ContentTemplate="{DataTemplate local2:EmployeeView}"
+        Route="employees" />
+    <ShellContent
+        Title="Client Details"
+        ContentTemplate="{DataTemplate local2:ClientDetailView}"
+        Route="ClientDetail" />
+    <ShellContent
+        Title="Project Details"
+        ContentTemplate="{DataTemplate local2:ProjectDetailView}"
+        Route="ProjectDetail" />
+    <ShellContent
+        Title="Client Project List"
+        ContentTemplate="{DataTemplate local2:ProjectListView}"
+        Route="ProjectList" />
+    <ShellContent
+        Title="add Project List"
+        ContentTemplate="{DataTemplate local2:ProjectView}"
+        Route="projectview" />
+    <ShellContent
+        Title="Employee Detail"
+        ContentTemplate="{DataTemplate local2:EmployeeDetailView}"
+        Route="Employeedetailview" />
+    
+    <ShellContent
+        Title="Time Entry"
+        ContentTemplate="{DataTemplate local2:TimeEntryView}"
+        Route="timeentryview" />
+    <ShellContent
+        Title="Add or Update Time Entry"
+        ContentTemplate="{DataTemplate local2:AddTimeView}"
+        Route="addtime" />
+
+    <ShellContent
+        Title="Add or Update Time Entry"
+        ContentTemplate="{DataTemplate local2:UpdateTimeView}"
+        Route="updatetime" />
+
+    <ShellContent
+        Title="bills"
+        ContentTemplate="{DataTemplate local2:BillDetailView}"
+        Route="billdetail" />
+
+
+    <ShellContent
+        Title="bills"
+        ContentTemplate="{DataTemplate local2:ChooseEmployeeView}"
+        Route="chooseemployee" />
+
+
+</Shell>

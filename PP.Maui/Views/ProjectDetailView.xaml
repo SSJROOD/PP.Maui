@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PP.Maui.Views.ProjectDetailView"
+             Title="ProjectDetailView"
+            NavigatedTo="onarrived">
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label  VerticalOptions="Center" Grid.Column="0" Text="Project ID"/>
+            <Entry Grid.Row="0" IsReadOnly="True" Grid.Column="1" Text="{Binding Path=ProjectModel.Id}"/>
+
+            <Label  VerticalOptions="Center" Grid.Column="0" Grid.Row="1" Text="ShortName"/>
+            <Entry Grid.Row="1"   Grid.Column="1" Text="{Binding Path=ProjectModel.ShortName}"/>
+
+            <Label  VerticalOptions="Center" Grid.Row="2" Grid.Column="0" Text="LongName"/>
+            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Path= ProjectModel.LongName}"/>
+
+            <Label VerticalOptions="Center" Grid.Row="3" Text="Isactive"/>
+            <Switch Grid.Row="3" Grid.Column="1"  IsToggled="{Binding Path=ProjectModel.IsActive}"/>
+
+            <Label Grid.Row="4" Text="Opendate" VerticalOptions="Center"/>
+            <Entry Grid.Row="4"  Grid.Column="1" Text="{Binding Path=ProjectModel.OpenDate}"/>
+
+            <Label Grid.Row="5" Text="ClosedDate" VerticalOptions="Center"/>
+            <Entry Grid.Row="5"  Grid.Column="1"  Text="{Binding Path=ProjectModel.ClosedDate}"/>
+
+            <Label Grid.Row="6" Text="ClientID" VerticalOptions="Center"/>
+            <Entry Grid.Row="6"  Grid.Column="1" IsReadOnly="True" Text="{Binding Path=ProjectModel.ClientId}"/>
+
+        </Grid>
+        <Button Text="OK" Clicked="OkButton"/>
+        <Button Text="Cancel" Clicked="cancelbutton"/>
+    </VerticalStackLayout>
+</ContentPage>

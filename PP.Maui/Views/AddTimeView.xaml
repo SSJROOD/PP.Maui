@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PP.Maui.Views.AddTimeView"
+             Title="AddTimeView"
+         NavigatedTo="onarriving">
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Entry IsReadOnly="True"/>
+            <Label Text="ProjectId =>" VerticalOptions="Center"/>
+            <Entry Text="{Binding selectedTime.ProjectId, Mode=TwoWay}" Grid.Column="1"/>
+
+            <Entry Grid.Row="1" IsReadOnly="True"/>
+            <Label Grid.Row="1" Text="Emp Id =>" VerticalOptions="Center"/>
+            <Entry Text="{Binding selectedTime.EmployeeId, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+
+            <Entry Grid.Row="2" IsReadOnly="True"/>
+            <Label Grid.Row="2" Text="Date =>" VerticalOptions="Center"/>
+            <Entry Text="{Binding selectedTime.Date, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+
+            <Entry Grid.Row="3" IsReadOnly="True"/>
+            <Label Grid.Row="3" Text="Hours =>" VerticalOptions="Center"/>
+            <Entry Text="{Binding selectedTime.Hours, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+
+            <Entry Grid.Row="4" IsReadOnly="True"/>
+            <Label Grid.Row="4" Text="Narrative =>" VerticalOptions="Center"/>
+            <Entry Text="{Binding selectedTime.Narrative, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"/>
+        </Grid>
+        <Button Text="Confirm" Clicked="confirmbutton"/>
+        <Button Text="Cancel" Clicked="cancelbutton"/>
+    </VerticalStackLayout>
+</ContentPage>

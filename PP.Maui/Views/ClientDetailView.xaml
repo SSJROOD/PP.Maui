@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PP.Maui.Views.ClientDetailView"
+             Title="ClientDetailView"
+             NavigatedTo="onarriving">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="12*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Text="Name" VerticalOptions="Center"/>
+                <Entry Grid.Column="1" Text="{Binding Path=Model.Name, Mode=TwoWay}"/>
+
+                <Label Text="ID" VerticalOptions="Center" Grid.Row="1"/>
+                <Entry Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=Model.Id, Mode=TwoWay}"/>
+
+                <Label Text="IsActive" VerticalOptions="Center" Grid.Row="2"/>
+                <Switch Grid.Row="2" Grid.Column="1" IsToggled="{Binding Model.IsActive, Mode=TwoWay}"/>
+
+                <Label Text="Open Date" VerticalOptions="Center" Grid.Row="3"/>
+                <Entry Grid.Row="3" Grid.Column="1"  Text="{Binding Path=Model.OpenDate, Mode=TwoWay}"/>
+
+                <Label Text="Closed Date" VerticalOptions="Center" Grid.Row="4"/>
+                <Entry Grid.Row="4" Grid.Column="1"  Text="{Binding Path=Model.ClosedDate, Mode=TwoWay}"/>
+
+                <Label Text="Notes" VerticalOptions="Center" Grid.Row="5"/>
+                <Entry Grid.Row="5" Grid.Column="1" Text="{Binding Path=Model.Notes, Mode=TwoWay}"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Entry Text="Projects"
+                   FontSize="36"
+                   IsReadOnly="True"
+                   FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Center"/>
+
+                <Button Grid.Row="1" Text="Add a Project" Clicked="addprojectbutton"/>
+            </Grid>
+
+            <ListView ItemsSource="{Binding Path=Projects}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition  Width="auto"/>
+                                    <ColumnDefinition  Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label Text="{Binding Path= Display}"/>
+                                <Button Grid.Column="3"  Text="Edit"
+                                        Command="{Binding Path=EditProjectCommand}" 
+                                        CommandParameter="{Binding}"
+                                        Clicked="EditProjectbutton"
+                                        />
+
+                                <Button Grid.Column="4"  Text="Delete" 
+                                        Command="{Binding Path=ProjectDeleteCommand}"
+                                        CommandParameter="{Binding}"
+                                        Clicked="ProjectDeleteButton" 
+                                        />
+                                <Button Grid.Column="2" Text="Timer"
+                                        Command="{Binding TimerCommand}"
+                                        CommandParameter="{Binding}"/>
+                                <Button Grid.Column="1"
+                                        Text="View Bill"
+                                        Command="{Binding chooseempCommand}"
+                                        CommandParameter="{Binding}"
+                                        />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="OK" Clicked="OkButton"/>
+            <Button Text="Cancel" Clicked="cancelbutton"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
