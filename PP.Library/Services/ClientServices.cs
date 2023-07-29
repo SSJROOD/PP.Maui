@@ -1,15 +1,18 @@
-﻿using PP.Library.Models;
+﻿using Newtonsoft.Json;
+using PP.Library.DTO;
+using PP.Library.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace PP.Library.Services
 {
     public class ClientServices
     {
+
         private static ClientServices? instance;
         private static object _lock = new object();
 
@@ -27,56 +30,53 @@ namespace PP.Library.Services
                 return instance;
             }
         }
-        private List<Client> clientList;
-        public List<Client> Clientlist
+        private List<ClientDTO> clientList;
+        public List<ClientDTO> Clientlist
         {
-            get { return clientList; }
+            get
+            {
+                return clientList ?? new List<ClientDTO>();
+            }
         }
 
         private ClientServices()
         {
-            clientList = new List<Client>
-            {
-                new Client {Id = 1, Name = "Client1",OpenDate = DateTime.Now, IsActive=true},
-                new Client {Id = 2, Name = "Client2",OpenDate = DateTime.Now, IsActive=true},
-                new Client {Id = 3, Name = "Client3", OpenDate = DateTime.Now, IsActive = true}
-            };
-
+            var response = new WebRequestHandler().Get("/Client").Result;
+            clientList = JsonConvert.DeserializeObject<List<ClientDTO>>(response) ?? new List<ClientDTO>();
         }
 
 
-        public Client? Get(int id)
+        public ClientDTO? Get(int id)
         {
+            var response = new WebRequestHandler().Get($"/{id}").Result;
+            return JsonConvert.DeserializeObject<ClientDTO>(response);
+        }
+        public void AddOrUpdate(ClientDTO c)
+        {
+            var response = new WebRequestHandler().Post("/Client", c).Result;
+            var updatedClient = JsonConvert.DeserializeObject<ClientDTO>(response);
+            if (updatedClient != null)
+            {
+                var existingClient = clientList.FirstOrDefault(c => c.Id == updatedClient.Id);
+                if (existingClient == null)
+                {
+                    clientList.Add(updatedClient);
+                }
+                else
+                {
+                    var index = clientList.IndexOf(existingClient);
+                    clientList.RemoveAt(index);
+                    clientList.Insert(index, updatedClient);
+                }
+            }
 
-            var client = clientList.FirstOrDefault(e => e.Id == id);
-            if (client != null && client.Projects != null)
-            {
-                client.Projects = ProjectServices.
-                    Current.
-                    Projects.
-                    Where(p => p.ClientId == id).ToList();
-            }
-            return client;
+
+
         }
-        public void AddOrUpdate(Client c)
-        {
-            if (c.Id == 0)
-            {
-                //add
-                c.Id = LastId + 1;
-                Clientlist.Add(c);
-            }
-        }
-        private int LastId
-        {
-            get
-            {
-                return Clientlist.Any() ? Clientlist.Select(c => c.Id).Max() : 1;
-            }
-        }
+
         public void Delete(int id)
         {
-            var clientToRemove = Get(id);
+            var clientToRemove = clientList.FirstOrDefault(c => c.Id == id);
             if (clientToRemove != null)
             {
                 var projectsToRemove = ProjectServices.Current.Projects.Where(p => p.ClientId == id).ToList();
@@ -84,13 +84,13 @@ namespace PP.Library.Services
                 {
                     ProjectServices.Current.Delete(project.Id);
                 }
+
+                var response = new WebRequestHandler().Delete($"/Client/Delete/{id}").Result;
                 clientList.Remove(clientToRemove);
             }
         }
 
-        public void Delete(Client s)
-        {
-            Delete(s.Id);
-        }
+
+
     }
 }

@@ -1,8 +1,9 @@
-﻿using PP.Library.Models;
+﻿using PP.Library.DTO;
 using PP.Library.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -14,7 +15,7 @@ namespace PP.Maui.ViewModels
 {
     public class ClientViewModel : INotifyPropertyChanged
     {
-        public Client Model { get; set; }
+        public ClientDTO Model { get; set; }
         public ObservableCollection<ProjectViewModel> Projects
         {
             get
@@ -79,7 +80,12 @@ namespace PP.Maui.ViewModels
         }
 
 
-        public ClientViewModel(Client client)
+
+
+
+
+
+        public ClientViewModel(ClientDTO client)
         {
             Model = client;
             SetupCommands();
@@ -93,20 +99,21 @@ namespace PP.Maui.ViewModels
         }
         public ClientViewModel(int id)
         {
-            if (id == 0)
+            if (id > 0)
             {
-                Model = new Client();
+                Model = ClientServices.Current.Get(id);
+
             }
             else
             {
-                Model = ClientServices.Current.Get(id);
+                Model = new ClientDTO();
             }
             SetupCommands();
         }
 
         public ClientViewModel()
         {
-            Model = new Client();
+            Model = new ClientDTO();
             SetupCommands();
         }
 
