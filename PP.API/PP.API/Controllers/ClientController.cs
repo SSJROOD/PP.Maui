@@ -3,6 +3,7 @@ using PP.API.EC;
 using PP.Library.Models;
 using PP.Library.DTO;
 using PP.Library.Utilities;
+using MySql.Data.MySqlClient;
 
 namespace PP.API.Controllers
 {
@@ -20,7 +21,7 @@ namespace PP.API.Controllers
         [HttpGet]
         public IEnumerable<ClientDTO> Get()
         {
-            return new ClientEC().Search();
+            return new ClientEC().Get();
         }
 
         [HttpGet("/{id}")]
@@ -35,15 +36,15 @@ namespace PP.API.Controllers
            return new ClientEC().Delete(id);
         }
         [HttpPost]
-        public ClientDTO AddOrUpdate([FromBody] ClientDTO dto)
+        public ClientDTO AddOrUpdate([FromBody] Client dto)
         {
             return new ClientEC().AddOrUpdate(dto);
         }
 
         [HttpGet("Search/{query}")]
-        public IEnumerable<ClientDTO> Search(string query)
+        public IEnumerable<ClientDTO> Search([FromBody] QueryMessage query)
         {
-            return new ClientEC().Search(query);
+            return new ClientEC().Search(query.Query);
         }
     }
 }

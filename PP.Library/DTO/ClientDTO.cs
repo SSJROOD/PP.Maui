@@ -10,7 +10,12 @@ namespace PP.Library.DTO
     public class ClientDTO
     {
         public int Id { get; set; }
+        public DateTime OpenDate { get; set; }
+        public DateTime ClosedDate { get; set; }
+        private bool isactive;
+        public bool IsActive { get { return isactive; } set { isactive = true; isactive = value; } }
         public string? Name { get; set; }
+        public string? Notes { get; set; }
         public List<Project>? Projects { get; set; }
 
         public ClientDTO()

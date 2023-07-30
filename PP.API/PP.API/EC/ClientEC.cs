@@ -5,55 +5,41 @@ namespace PP.API.EC
 {
     public class ClientEC
     {
-        public ClientDTO AddOrUpdate(ClientDTO dto)
+        public ClientDTO AddOrUpdate(Client client)
         {
-            if(dto.Id > 0)
-            {
-                var cUpdate = FakeDatabase.
-                    Clients.
-                    FirstOrDefault(x=> x.Id == dto.Id);
-                if(cUpdate != null)
-                {
-                    FakeDatabase.Clients.Remove(cUpdate);
-                }
-                FakeDatabase.Clients.Add(new Client(dto));
-
-            }
-            else
-            {
-                dto.Id = FakeDatabase.LastClientId + 1;
-                FakeDatabase.Clients.Add(new Client(dto));
-            }
-            return dto;
+            var result = ClientDatabase.Current.AddOrUpdate(client);
+            return new ClientDTO(client);
         }
 
         public IEnumerable<ClientDTO> Search(string query = "")
         {
-           return FakeDatabase.Clients.
-                               Where(c => c.Name.ToUpper().
-                               Contains(query.ToUpper())).
-                               Take(100).
-                               Select(c => new ClientDTO(c));
+            var result = ClientDatabase.Current.Search(query);
+            return result.Select(c => new ClientDTO(c));
         }
 
         public ClientDTO? Get(int id)
         {
-            var result =  FakeDatabase.
-                           Clients.
-                           FirstOrDefault(c => c.Id == id) ?? new Client();
-
+            var result =  ClientDatabase.Current.GetClient(id);
             return new ClientDTO(result);
 
         }
 
+        public List<ClientDTO> Get()
+        {
+            var result = ClientDatabase.Current.Get();
+            return result.Select(c => new ClientDTO
+            {
+                Id = c.Id,
+                Name = c.Name,
+                OpenDate = c.OpenDate,
+                IsActive = c.IsActive
+            }).ToList();
+        }
+
         public ClientDTO? Delete(int id)
         {
-            var c = FakeDatabase.Clients.FirstOrDefault(x => x.Id == id);
-            if (c != null)
-            {
-                FakeDatabase.Clients.Remove(c);
-            }
-            return c != null ? new ClientDTO(c) : null;
+           var result = ClientDatabase.Current.Delete(id);
+            return result != null ? new ClientDTO(result) : null;
         }
 
     }
